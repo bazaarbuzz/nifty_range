@@ -1,0 +1,86 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Nifty Range Predictor</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .container { max-width: 800px; margin: 0 auto; }
+            .form-group { margin-bottom: 15px; }
+            label { display: block; margin-bottom: 5px; font-weight: bold; }
+            input[type="number"] { width: 200px; padding: 8px; }
+            button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+            .results { margin-top: 20px; padding: 15px; border: 1px solid #ddd; background-color: #f9f9f9; }
+            .prediction { margin: 10px 0; }
+            .high { color: green; }
+            .low { color: red; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Nifty 3-Week Range Predictor</h1>
+
+            <div class="form-group">
+                <label for="nifty">Nifty Monday Close:</label>
+                <input type="number" id="nifty" step="0.01" placeholder="e.g., 22500.00">
+            </div>
+
+            <div class="form-group">
+                <label for="vix">India VIX Close:</label>
+                <input type="number" id="vix" step="0.01" placeholder="e.g., 14.25">
+            </div>
+
+            <button onclick="makePrediction()">Predict Range</button>
+
+            <div class="results" id="results" style="display: none;">
+                <h2>3-Week Range Prediction</h2>
+                <div class="prediction">
+                    <strong>Predicted High:</strong> <span id="high" class="high"></span>
+                </div>
+                <div class="prediction">
+                    <strong>Predicted Low:</strong> <span id="low" class="low"></span>
+                </div>
+                <div class="prediction">
+                    <strong>Direction Probability:</strong> <span id="direction"></span>
+                </div>
+                <div class="prediction">
+                    <strong>Expected Close:</strong> <span id="close"></span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function makePrediction() {
+                // In a real application, this would call the Python model via API
+                // For demonstration, we'll just show the interface
+
+                const nifty = parseFloat(document.getElementById('nifty').value);
+                const vix = parseFloat(document.getElementById('vix').value);
+
+                if (isNaN(nifty) || isNaN(vix)) {
+                    alert('Please enter valid numbers for both fields');
+                    return;
+                }
+
+                // Show results area
+                document.getElementById('results').style.display = 'block';
+
+                // For demo, calculate some values (in real app, these would come from the model)
+                const highPct = 5 + (15 / vix);
+                const lowPct = 3 + (10 / vix);
+                const dirProb = 50 + (nifty % 10) - (vix % 5);
+
+                const predictedHigh = nifty * (1 + highPct/100);
+                const predictedLow = nifty * (1 - lowPct/100);
+                const expectedClose = nifty * (1 + (dirProb - 50)/100);
+
+                // Display results
+                document.getElementById('high').textContent = `${predictedHigh.toFixed(2)} (+${highPct.toFixed(2)}%)`;
+                document.getElementById('low').textContent = `${predictedLow.toFixed(2)} (-${lowPct.toFixed(2)}%)`;
+                document.getElementById('direction').textContent = `${dirProb.toFixed(1)}% chance of closing higher`;
+                document.getElementById('close').textContent = `${expectedClose.toFixed(2)}`;
+            }
+        </script>
+    </body>
+    </html>
+    
