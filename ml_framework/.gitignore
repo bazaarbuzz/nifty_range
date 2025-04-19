@@ -1,0 +1,57 @@
+# Ignore everything
+
+# Allow the raw data folder and its contents
+!data/
+!data/raw/
+!data/raw/**
+
+# Ignore all other CSVs
+*.csv
+
+# Ignore models and outputs
+models/
+*.h5
+*.pt
+*.pkl
+*.joblib
+*.sav
+
+# Ignore plots and images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.pdf
+
+# Ignore temporary or generated files
+*.log
+*.tmp
+*.npy
+*.npz
+*.json
+*.yaml
+*.yml
+*.db
+*.sqlite
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environments
+venv/
+.env/
+.venv/
+
+# Ignore __pycache__ and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Allow .gitignore itself
+!.gitignore
